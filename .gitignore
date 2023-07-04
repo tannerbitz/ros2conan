@@ -4,3 +4,4 @@ install
 log
 src
 *.xlsx
+*.ipynb
