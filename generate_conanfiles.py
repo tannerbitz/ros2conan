@@ -13,7 +13,7 @@ def render():
     )
     template = env.get_template("cmake_conanfile.jinja")
 
-    args = {'name': "Tanner Bitz", 'confidence': 'low' }
+    args = {'name': "Tanner Bitz", 'author': 'low' }
     print(template.render(**args))
 
 
