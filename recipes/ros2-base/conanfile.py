@@ -11,12 +11,10 @@ import os
 import sys
 
 from conan import ConanFile
-from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import mkdir, replace_in_file, chdir, copy, collect_libs
 import yaml
 
 class Ros2Base(object):
-    options = {"python_version": "ANY"}
     tools_requires = "vcstool/system", "colcon/system"
 
     @property
@@ -39,7 +37,7 @@ class Ros2Base(object):
         return "python{major}.{minor}".format(major=sys.version_info[0], minor=sys.version_info[1])
 
 
-    def _create_repo_file(self, repos_path, url=self.url, version=str(self.version)):
+    def _create_repo_file(self, repos_path, url, version):
         """Creates repos file to representing one repo"""
         repos_contents = { 'repositories' : { 'repo' : { 'type' : 'git', 'url' : url, 'version' : version } } }
         with open(repos_path, 'w') as f:
@@ -73,8 +71,7 @@ class Ros2Base(object):
         colcon_args_string = ' '.join(colcon_args)
 
         # Run the colcon command inside the workspace directory
-        with chdir(self, os.path.join(self.build_folder, self._ws_dir):
-            self.run("colcon build {args}".format(args=colcon_args_string))
+        self.run("colcon build {args}".format(args=colcon_args_string))
 
     def _colcon_build(self, cmake_args = []):
         """
@@ -98,15 +95,8 @@ class Ros2Base(object):
                 replace_in_file(self, filepath, virtual_env_shebang, generic_python_shebang, strict=False)
                 replace_in_file(self, filepath, absolute_path_shebang, generic_python_shebang, strict=False)
 
-    def configure(self):
-        # The ROS 2 packages contains some python3 modules that are only compatible with the python version used to create the package.
-        # We add this dummy Conan option to encode the supported python version on the package metadata.
-        if self.options.python_version and self.options.python_version != self._python_version:
-            raise ConanInvalidConfiguration("Do not set Python version option, Conan will automatically detect the one used to build the package")
-        self.options.python_version = self._python_version
-
     def package(self):
-        install_dir_path = os.path.join(self.build_folder, self._ws_dir, self._install_dir)
+        install_dir_path = os.path.join(self.build_folder, self._install_dir)
 
         # Post build patch
         ros2_bin_dir = os.path.join(install_dir_path, "bin")
