@@ -38,6 +38,20 @@ class {{package_name}}Recipe(ConanFile):
         tc = CMakeToolchain(self)
         tc.generate()
 
+    {% if requires is defined -%}
+    def requirements(self):
+        {% for require in requires -%}
+        self.requires("{{ require }}", transitive_headers=True)
+        {% endfor %}
+    {%- endif %}
+
+    {% if tool_requires is defined -%}
+    def build_requirements(self):
+        {% for require in tool_requires -%}
+        self.tool_requires("{{ require }}")
+        {% endfor %}
+    {%- endif %}
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()
@@ -50,17 +64,12 @@ class {{package_name}}Recipe(ConanFile):
     def package_info(self):
         self.cpp_info.libs = ["{{name}}"]
 
-    {% if requires is defined -%}
-    def requirements(self):
-        {% for require in requires -%}
-        self.requires("{{ require }}")
-        {% endfor %}
-    {%- endif %}
+        self.cpp_info.set_property("cmake_find_mode", "none")
+        self.cpp_info.builddirs.append("")
+        
+        self.buildenv_info.prepend_path("AMENT_PREFIX_PATH", self.package_folder)
+        self.runenv_info.prepend_path("AMENT_PREFIX_PATH", self.package_folder)
 
-    {% if tool_requires is defined -%}
-    def build_requirements(self):
-        {% for require in tool_requires -%}
-        self.tool_requires("{{ require }}")
-        {% endfor %}
-    {%- endif %}
+
+
 
