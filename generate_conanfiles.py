@@ -5,17 +5,24 @@ import os
 import glob
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
+from rospackageparser import *
+from dataclasses import asdict
+import json
 
 
-def render():
+def render(metadata: PackageMetadata, deps: ConanDeps):
     env = Environment(
         loader=FileSystemLoader("templates")
     )
     template = env.get_template("cmake_conanfile.jinja")
 
-    args = {'name': "Tanner Bitz", 'author': 'low' }
-    print(template.render(**args))
-
+    args = {'name': "Tanner Bitz" }
+    all_deps = asdict(deps)
+    conan_reqs = all_deps['requires']
+    conan_build_requirements = all_deps['build_requirements']
+    print(template.render(requirements=conan_reqs,
+                          build_requirements=conan_build_requirements,
+                          **asdict(metadata)))
 
 def read_repos(repos_file: str) -> dict:
     is_file = os.path.isfile(repos_file)
@@ -38,16 +45,21 @@ def has_file(dirname, fname):
 def has_cmakelists(dirname):
     return has_file(dirname, "CMakeLists.txt")
 
-
 def has_setup_py(dirname):
     return has_file(dirname, "setup.py")
 
 
 if __name__ == "__main__":
-    # repos = read_repos("ros2.repos")
+    repos = read_repos("ros2.repos")
 
-    # src_dir = Path(__file__).parent.absolute() / "src"
-    # package_xmls = get_package_xml_files(src_dir)
-    # print(package_xmls)
+    src_dir = Path(__file__).parent.absolute() / "src"
+    package_xmls = get_package_xml_files(src_dir)
 
-    render()
+    package = Path(src_dir, package_xmls[0])
+    print(package)
+    metadata, deps = parse_package(package)
+        
+    conan_deps = convert_to_conandeps(deps)
+    render(metadata, conan_deps)
+
+

@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
-import copy
-from dataclasses import dataclass
-from typing import List
+from dataclasses import dataclass, field
+from typing import List, Dict
 import logging
+import os
 
 
 @dataclass
@@ -22,7 +22,7 @@ class PackageMetadata:
     license: list[str]
     url: list[str]
 
-def package_metadata(package):
+def package_metadata(package) -> PackageMetadata:
     """
     Gather required tags as defined in https://ros.org/reps/rep-0149.html#required-tags
     Required Tags
@@ -67,10 +67,11 @@ def package_metadata(package):
     return package_meta
 
 @dataclass
-class DependencyInfo:
+class RosDepDescription:
     build_depend: bool = False
     build_export_depend: bool = False
     buildtool_depend: bool = False
+    buildtool_export_depend: bool = False
     exec_depend: bool = False
     depend: bool = False
     doc_depend: bool = False
@@ -84,7 +85,7 @@ class DependencyInfo:
     version_gt: str|None = None
 
 
-def get_dependencies(package):
+def get_dependencies(package) -> Dict[str, RosDepDescription]:
     """
     Gather data from export section of package.xml as defined by the spec https://ros.org/reps/rep-0149.html#dependency-tags
     Dependency tags
@@ -116,6 +117,7 @@ def get_dependencies(package):
         "build_depend" ,
         "build_export_depend" ,
         "buildtool_depend",
+        "buildtool_export_depend",
         "exec_depend" ,
         "depend" ,
         "doc_depend",
@@ -124,7 +126,7 @@ def get_dependencies(package):
         "replace",
     ]
 
-    dependencies = {str(child.text): DependencyInfo() for child in root if child.tag in dependency_tag_names}
+    dependencies = {str(child.text): RosDepDescription() for child in root if child.tag in dependency_tag_names}
 
     for child in root:
         if child.tag in dependency_tag_names:
@@ -134,6 +136,8 @@ def get_dependencies(package):
                 dependencies[str(child.text)].build_export_depend = True
             elif child.tag == "buildtool_depend":
                 dependencies[str(child.text)].buildtool_depend = True
+            elif child.tag == "buildtool_export_depend":
+                dependencies[str(child.text)].buildtool_export_depend = True
             elif child.tag == "exec_depend":
                 dependencies[str(child.text)].exec_depend = True
             elif child.tag == "depend":
@@ -199,13 +203,62 @@ def parse_package(package):
     return (metadata,deps_map)
 
 
+@dataclass
+class ConanRequirement:
+    name: str = ""
+    version: str = ""
+    transitive_headers: bool|None = None
+    transitive_libs: bool|None = None
+
+@dataclass
+class ConanBuildRequirements:
+    tool_requires: list[ConanRequirement] = field(default_factory=list)
+    test_requires: list[ConanRequirement] = field(default_factory=list)
+
+@dataclass
+class ConanDeps:
+    requires: list[ConanRequirement] = field(default_factory=list)
+    build_requirements: ConanBuildRequirements = field(default_factory=ConanBuildRequirements)
+
+def convert_to_conandeps(pkg_ros_deps: dict[str, RosDepDescription]) -> ConanDeps:
+    conan_deps = ConanDeps()
+    for dep_name, ros_deps in pkg_ros_deps.items():
+        version_str = "*"
+        conan_req = ConanRequirement(dep_name, version_str)
+        # define requirements traits
+        if ros_deps.build_export_depend or ros_deps.depend:
+            conan_req.transitive_headers = True
+        if ros_deps.exec_depend or ros_deps.depend:
+            conan_req.transitive_libs = True
+        # place into conan requirements
+        if ( ros_deps.build_export_depend or
+             ros_deps.build_depend or
+             ros_deps.exec_depend or
+             ros_deps.depend ):
+            conan_deps.requires.append(conan_req)
+        if ( ros_deps.buildtool_depend or ros_deps.buildtool_export_depend or ros_deps.doc_depend):
+            conan_deps.build_requirements.tool_requires.append(conan_req)
+        if ( ros_deps.test_depend ):
+            conan_deps.build_requirements.test_requires.append(conan_req)
+    return conan_deps
+
 if __name__ == "__main__":
     import glob
     import os
     packages = glob.glob('**/package.xml', root_dir=os.path.dirname(__file__), recursive=True)
+    print(f"{len(packages)} packages found")
 
-    non_ignored_packages = list(filter(lambda x: not glob.glob("*_IGNORE", root_dir=os.path.dirname(x)), packages))
+    package_has_ignore_file = lambda package_xml: glob.glob("*_IGNORE", root_dir=os.path.dirname(package_xml))
+    package_without_ignore_file = lambda package_xml: not package_has_ignore_file(package_xml)
+
+    non_ignored_packages = list(filter(package_without_ignore_file, packages))
+    print(f"{len(non_ignored_packages)} packages without *_IGNORE")
+
     packages_with_build_type = list(filter(lambda x: get_build_types(x), non_ignored_packages))
+    print(f"{len(packages_with_build_type)} packages without *_IGNORE and with defined build_type")
+
+    ignored_packages = list(filter(package_has_ignore_file, packages))
+    print(f"ignored packages: {ignored_packages}")
 
     deps = get_dependencies(packages_with_build_type[-1])
     for dep, dep_info in deps.items():
