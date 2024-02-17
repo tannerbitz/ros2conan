@@ -1,0 +1,8 @@
+sources:
+  {{ version }}:
+    url: {{ url }}
+    ref: {{ git_ref }}
+    {% if subfolder is defined -%}
+    subfolder: {{ subfolder }}
+    {% endif -%}
+    
