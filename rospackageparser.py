@@ -3,7 +3,8 @@ from dataclasses import dataclass, field
 from typing import List, Dict
 import logging
 import os
-
+from os import PathLike
+from typing import Tuple
 
 @dataclass
 class Maintainer:
@@ -22,7 +23,7 @@ class PackageMetadata:
     license: list[str]
     url: list[str]
 
-def package_metadata(package) -> PackageMetadata:
+def package_metadata(package) -> PackageMetadata|None:
     """
     Gather required tags as defined in https://ros.org/reps/rep-0149.html#required-tags
     Required Tags
@@ -188,7 +189,7 @@ def get_build_types(package) -> list[str]:
     
     return build_types
 
-def parse_package(package):
+def parse_package(package: PathLike):
     if not os.path.isfile(package):
         logging.warn(f"{package} is not a file. Skipping package parse")
         return None
@@ -220,10 +221,39 @@ class ConanDeps:
     requires: list[ConanRequirement] = field(default_factory=list)
     build_requirements: ConanBuildRequirements = field(default_factory=ConanBuildRequirements)
 
-def convert_to_conandeps(pkg_ros_deps: dict[str, RosDepDescription]) -> ConanDeps:
+def get_version_str(dep_name: str, dep_desc: RosDepDescription, pkgs: dict[str, PackageMetadata]) -> str:
+    version_str = ""
+    has_version_restriction = bool((dep_desc.version_lt  is not None) or
+                                   (dep_desc.version_eq  is not None) or
+                                   (dep_desc.version_gt  is not None) or 
+                                   (dep_desc.version_lte is not None) or
+                                   (dep_desc.version_gte is not None))
+    
+    if has_version_restriction:
+        if (dep_desc.version_eq is not None):
+            return str(dep_desc.version_eq)
+        if (dep_desc.version_lt is not None):
+            version_str += f"<{dep_desc.version_lt}"
+        if (dep_desc.version_lte is not None):
+            version_str += f"<={dep_desc.version_lte}"
+        if (dep_desc.version_gt is not None):
+            version_str += f">{dep_desc.version_gt}"
+        if (dep_desc.version_gte is not None):
+            version_str += f">={dep_desc.version_gte}"
+    else:
+        # impose current version of package as minimum
+        try:
+            dep_meta = pkgs[dep_name]
+            version_str += f">={dep_meta.version}"
+        except KeyError:
+            return "*"
+
+    return f"[{version_str}]"
+
+def convert_to_conandeps(pkg_ros_deps: dict[str, RosDepDescription], pkgs: dict[str, PackageMetadata]) -> ConanDeps:
     conan_deps = ConanDeps()
     for dep_name, ros_deps in pkg_ros_deps.items():
-        version_str = "*"
+        version_str = get_version_str(dep_name, ros_deps, pkgs)
         conan_req = ConanRequirement(dep_name, version_str)
         # define requirements traits
         if ros_deps.build_export_depend or ros_deps.depend:
