@@ -1,6 +1,7 @@
 from conan import ConanFile
 from conan.tools.scm import Git
 from conan.tools.files import copy
+from conan.tools.scm import Version
 from sys import version_info
 
 class AmentPackageConan(ConanFile):
@@ -18,8 +19,26 @@ class AmentPackageConan(ConanFile):
     }
 
     default_options = {
-        "python_version": f"{version_info.major}.{version_info.minor}"
+        "python_version": "*"
     }
+
+
+    @property
+    def py_version_range(self):
+        py_version = self.options.python_version
+        py_version_range = "[*]"
+        if (py_version != "*"):
+            py_version_opt = Version(py_version)
+            py_major_min_min = Version(f"{py_version_opt.major}.{py_version_opt.minor}")
+            py_major_min_max = py_major_min_min.bump(1)
+            py_version_range = f"[>={py_major_min_min} <{py_major_min_max}]"
+        return py_version_range
+
+    def requirements(self):
+        self.requires(f"cpython/{self.py_version_range}")
+
+    def build_requirements(self):
+        self.tool_requires(f"cpython/{self.py_version_range}")
 
     def source(self):
         url = "https://github.com/ament/ament_package.git"
