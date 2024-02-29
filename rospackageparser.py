@@ -258,7 +258,6 @@ def convert_to_conandeps(pkg_ros_deps: dict[str, RosDepDescription], pkgs: dict[
         # define requirements traits
         if ros_deps.build_export_depend or ros_deps.depend:
             conan_req.transitive_headers = True
-        if ros_deps.exec_depend or ros_deps.depend:
             conan_req.transitive_libs = True
         # place into conan requirements
         if ( ros_deps.build_export_depend or
