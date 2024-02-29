@@ -55,7 +55,7 @@ class {{package_name}}Recipe(ConanFile):
     {% if build_requirements is defined -%}
     def build_requirements(self):
         {% for require in build_requirements.tool_requires -%}
-        self.tool_requires("{{ require.name }}/{{  require.version}}")
+        self.tool_requires("{{ require.name }}/{{  require.version }}")
         {% endfor %}
         {% for require in build_requirements.test_requires -%}
         self.test_requires("{{ require.name }}/{{  require.version }}")
