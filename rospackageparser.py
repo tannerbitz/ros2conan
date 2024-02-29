@@ -152,7 +152,7 @@ def get_dependencies(package) -> Dict[str, RosDepDescription]:
             elif child.tag == "replace":
                 dependencies[str(child.text)].replace = True
 
-            for attrib, val in child.attrib:
+            for attrib, val in child.attrib.items():
                 if attrib in "version_lt":
                     dependencies[str(child.text)].version_lt = val
                 elif attrib in "version_lte":
