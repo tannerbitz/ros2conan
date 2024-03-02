@@ -1,0 +1,635 @@
+[
+  {
+    "name": "libqt5-core",
+    "system_libs": [
+      "libqt5core5a"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libxrandr",
+    "system_libs": [
+      "libxrandr-dev"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "yaml",
+    "system_libs": [
+      "libyaml-dev"
+    ],
+    "replace_with": "libyaml/[>=0.2.5]"
+  },
+  {
+    "name": "google-mock",
+    "system_libs": [
+      "google-mock"
+    ],
+    "replace_with": "gtest/[>=1.14.0]"
+  },
+  {
+    "name": "clang-format",
+    "system_libs": [
+      "clang-format"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-pytest",
+    "system_libs": [
+      "python3-pytest"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-sphinx",
+    "system_libs": [
+      "python3-sphinx"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-importlib-metadata",
+    "system_libs": [
+      "python3-importlib-metadata"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-pycodestyle",
+    "system_libs": [
+      "python3-pycodestyle"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "tango-icon-theme",
+    "system_libs": [
+      "tango-icon-theme"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libqt5-widgets",
+    "system_libs": [
+      "libqt5widgets5"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libxml2-utils",
+    "system_libs": [
+      "libxml2-utils"
+    ],
+    "replace_with": "libxml2/[>=2.12.4]"
+  },
+  {
+    "name": "yaml-cpp",
+    "system_libs": [
+      "libyaml-cpp-dev"
+    ],
+    "replace_with": "yaml-cpp/[>=0.8.0]"
+  },
+  {
+    "name": "libconsole-bridge-dev",
+    "system_libs": [
+      "libconsole-bridge-dev"
+    ],
+    "replace_with": "console_bridge/[>=1.0.2]"
+  },
+  {
+    "name": "python3-numpy",
+    "system_libs": [
+      "python3-numpy"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-packaging",
+    "system_libs": [
+      "python3-packaging"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "pkg-config",
+    "system_libs": [
+      "pkg-config"
+    ],
+    "replace_with": "pkgconf/[>=2.1.0]"
+  },
+  {
+    "name": "qt5-qmake",
+    "system_libs": [
+      "qt5-qmake"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "acl",
+    "system_libs": [
+      "acl",
+      "libacl1-dev"
+    ],
+    "replace_with": "acl/[>=2.3.1]"
+  },
+  {
+    "name": "python3-pytest-timeout",
+    "system_libs": [
+      "python3-pytest-timeout"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-dev",
+    "system_libs": [
+      "python3-dev"
+    ],
+    "replace_with": "cpython/[*]"
+  },
+  {
+    "name": "pybind11-dev",
+    "system_libs": [
+      "pybind11-dev"
+    ],
+    "replace_with": "pybind11/[>=2.11.1]"
+  },
+  {
+    "name": "python3-pydot",
+    "system_libs": [
+      "python3-pydot"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-pykdl",
+    "system_libs": [
+      "python3-pykdl"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libx11-dev",
+    "system_libs": [
+      "libx11-dev"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "bullet",
+    "system_libs": [
+      "libbullet-dev"
+    ],
+    "replace_with": "bullet3/[>=3.25]"
+  },
+  {
+    "name": "libcunit-dev",
+    "system_libs": [
+      "libcunit1-dev"
+    ],
+    "replace_with": "cunit/[>=2.1-3]"
+  },
+  {
+    "name": "opengl",
+    "system_libs": [
+      "libgl1-mesa-dev",
+      "libglu1-mesa-dev"
+    ],
+    "replace_with": "opengl/system"
+  },
+  {
+    "name": "python3-lxml",
+    "system_libs": [
+      "python3-lxml"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-setuptools",
+    "system_libs": [
+      "python3-setuptools"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "eigen",
+    "system_libs": [
+      "libeigen3-dev"
+    ],
+    "replace_with": "eigen/[>=3.4.0]"
+  },
+  {
+    "name": "python3-flake8",
+    "system_libs": [
+      "python3-flake8"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "benchmark",
+    "system_libs": [
+      "libbenchmark-dev"
+    ],
+    "replace_with": "benchmark/[>=1.8.3]"
+  },
+  {
+    "name": "gtest",
+    "system_libs": [
+      "libgtest-dev"
+    ],
+    "replace_with": "gtest/[>=1.14.0]"
+  },
+  {
+    "name": "git",
+    "system_libs": [
+      "git"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "doxygen",
+    "system_libs": [
+      "doxygen"
+    ],
+    "replace_with": "doxygen/[>=1.9.4]"
+  },
+  {
+    "name": "graphviz",
+    "system_libs": [
+      "graphviz"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-babeltrace",
+    "system_libs": [
+      "python3-babeltrace"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "pyflakes3",
+    "system_libs": [
+      "pyflakes3"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-cairo",
+    "system_libs": [
+      "python3-cairo"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "asio",
+    "system_libs": [
+      "libasio-dev"
+    ],
+    "replace_with": "asio/[>=1.29.0]"
+  },
+  {
+    "name": "libfreetype6",
+    "system_libs": [
+      "libfreetype6"
+    ],
+    "replace_with": "freetype/[>=2.13.2]"
+  },
+  {
+    "name": "python3-nose",
+    "system_libs": [
+      "python3-nose"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-breathe",
+    "system_libs": [
+      "python3-breathe"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-argcomplete",
+    "system_libs": [
+      "python3-argcomplete"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "ignition-math6",
+    "system_libs": [
+      "libignition-math6-dev"
+    ],
+    "replace_with": "ignition-math/[>=6.10.0]"
+  },
+  {
+    "name": "libxaw",
+    "system_libs": [
+      "libxaw7-dev"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "file",
+    "system_libs": [
+      "file"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "ignition-cmake2",
+    "system_libs": [
+      "libignition-cmake2-dev"
+    ],
+    "replace_with": "ignition-cmake/[>=2.17.1]"
+  },
+  {
+    "name": "pydocstyle",
+    "system_libs": [
+      "pydocstyle"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-pil",
+    "system_libs": [
+      "python3-pil"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-qt5-bindings",
+    "system_libs": [
+      "libpyside2-dev",
+      "libshiboken2-dev",
+      "pyqt5-dev",
+      "python3-pyqt5",
+      "python3-pyqt5.qtsvg",
+      "python3-pyside2.qtsvg",
+      "python3-sip-dev",
+      "shiboken2"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libssl-dev",
+    "system_libs": [
+      "libssl-dev"
+    ],
+    "replace_with": "openssl/[>=3.2.1]"
+  },
+  {
+    "name": "python3-pytest-cov",
+    "system_libs": [
+      "python3-pytest-cov"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "qtbase5-dev",
+    "system_libs": [
+      "qtbase5-dev"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "cmake",
+    "system_libs": [
+      "cmake"
+    ],
+    "replace_with": "cmake/[>=3.28.1]"
+  },
+  {
+    "name": "rti-connext-dds-6.0.1",
+    "system_libs": [
+      "rti-connext-dds-6.0.1"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "liborocos-kdl-dev",
+    "system_libs": [
+      "liborocos-kdl-dev"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libqt5-gui",
+    "system_libs": [
+      "libqt5gui5"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-pygraphviz",
+    "system_libs": [
+      "python3-pygraphviz"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-lttng",
+    "system_libs": [
+      "python3-lttng"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "tinyxml",
+    "system_libs": [
+      "libtinyxml-dev"
+    ],
+    "replace_with": "tinyxml/[>=2.6.2]"
+  },
+  {
+    "name": "spdlog",
+    "system_libs": [
+      "libspdlog-dev"
+    ],
+    "replace_with": "spdlog/[>=1.13.0]"
+  },
+  {
+    "name": "python3-rosdistro-modules",
+    "system_libs": [
+      "python3-rosdistro-modules"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libzstd-dev",
+    "system_libs": [
+      "libzstd-dev"
+    ],
+    "replace_with": "zstd/[>=1.5.5]"
+  },
+  {
+    "name": "curl",
+    "system_libs": [
+      "libcurl4-openssl-dev",
+      "curl"
+    ],
+    "replace_with": "libcurl/[>=8.6.0]"
+  },
+  {
+    "name": "python3-pytest-mock",
+    "system_libs": [
+      "python3-pytest-mock"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libfreetype6-dev",
+    "system_libs": [
+      "libfreetype6-dev"
+    ],
+    "replace_with": "freetype/[>=2.13.2]"
+  },
+  {
+    "name": "libsqlite3-dev",
+    "system_libs": [
+      "libsqlite3-dev"
+    ],
+    "replace_with": "sqlite3/[>=3.45.1]"
+  },
+  {
+    "name": "python3-netifaces",
+    "system_libs": [
+      "python3-netifaces"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-psutil",
+    "system_libs": [
+      "python3-psutil"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-empy",
+    "system_libs": [
+      "python3-empy"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-yaml",
+    "system_libs": [
+      "python3-yaml"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "tinyxml2",
+    "system_libs": [
+      "libtinyxml2-dev"
+    ],
+    "replace_with": "tinyxml2/[>=10.0.0]"
+  },
+  {
+    "name": "python3-catkin-pkg-modules",
+    "system_libs": [
+      "python3-catkin-pkg-modules"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "uncrustify",
+    "system_libs": [
+      "uncrustify"
+    ],
+    "replace_with": "uncrustify/[>=0.78.1]"
+  },
+  {
+    "name": "libatomic",
+    "system_libs": [
+      "libatomic1"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-cryptography",
+    "system_libs": [
+      "python3-cryptography"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "libqt5-opengl",
+    "system_libs": [
+      "libqt5opengl5"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-matplotlib",
+    "system_libs": [
+      "python3-matplotlib"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "openssl",
+    "system_libs": [
+      "openssl"
+    ],
+    "replace_with": "openssl/[>=3.2.1]"
+  },
+  {
+    "name": "python3-importlib-resources",
+    "system_libs": [
+      "python3-minimal"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "assimp",
+    "system_libs": [
+      "libassimp-dev"
+    ],
+    "replace_with": "assimp/[>=5.2.2]"
+  },
+  {
+    "name": "libopencv-dev",
+    "system_libs": [
+      "libopencv-dev"
+    ],
+    "replace_with": "opencv/[>=4.8.1]"
+  },
+  {
+    "name": "clang-tidy",
+    "system_libs": [
+      "clang-tidy"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3-pkg-resources",
+    "system_libs": [
+      "python3-pkg-resources"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "python3",
+    "system_libs": [
+      "python3-dev"
+    ],
+    "replace_with": "cpython/[*]"
+  },
+  {
+    "name": "python3-lark-parser",
+    "system_libs": [
+      "python3-lark"
+    ],
+    "replace_with": ""
+  },
+  {
+    "name": "cppcheck",
+    "system_libs": [
+      "cppcheck"
+    ],
+    "replace_with": "cppcheck/[>=2.13.3]"
+  }
+]

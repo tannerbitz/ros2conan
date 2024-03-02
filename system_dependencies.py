@@ -4,6 +4,8 @@ from typing import Generator
 import subprocess
 from utils import *
 from rospackageparser import *
+from dataclasses import dataclass, asdict
+import json
 
 def run_rosdep_resolve_on_deps(deps: list[str]) -> str:
     result = subprocess.run(["rosdep", "resolve"] + deps, capture_output=True, text=True)
@@ -21,26 +23,23 @@ def ros_dep_resolve_lexer(ros_dep_resolve_output: str) -> Generator[str, None, N
         else:
             current_token += char
 
+@dataclass
 class SystemDep:
-    def __init__(self, name):
-        self.name = name
-        self.system_libs = []
-    
-    def __repr__(self):
-        return f"name: {self.name}\n" + \
-               "system_libs:\n\t" + "\n\t".join(self.system_libs)
+    name: str = ""
+    system_libs: list[str] = field(default_factory=list)
+    replace_with: str = ""
 
 def parser(tokens: Generator[str, None, None]) -> list[SystemDep]:
 
     start_token = "#ROSDEP"
 
     system_deps: list[SystemDep] = []
-    dep = SystemDep("")
+    dep = SystemDep()
     for token in tokens:
         if token == start_token:
             if dep.name and dep.system_libs:
                 system_deps.append(dep)
-            dep = SystemDep("")
+            dep = SystemDep()
         elif token.startswith("#"):
             continue
         else:
@@ -78,5 +77,9 @@ if __name__ == "__main__":
     skipped_keys = ["python-catkin-pkg"]
     all_deps = list(set(all_deps))
     deps = [x for x in all_deps if x not in skipped_keys]
-    print("\n\n".join(map(str,get_system_libraries(deps))))
+    system_libs = get_system_libraries(deps)
 
+    system_libs = [asdict(dep) for dep in system_libs]
+    with open("system_libraries.json", "w") as json_file:
+        json.dump(system_libs, json_file, indent=2)
+    
