@@ -145,7 +145,7 @@
     "system_libs": [
       "python3-dev"
     ],
-    "replace_with": "cpython/[*]"
+    "replace_with": "cpython/[>=3]"
   },
   {
     "name": "pybind11-dev",
@@ -616,7 +616,7 @@
     "system_libs": [
       "python3-dev"
     ],
-    "replace_with": "cpython/[*]"
+    "replace_with": "cpython/[>=3]"
   },
   {
     "name": "python3-lark-parser",
