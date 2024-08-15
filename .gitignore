@@ -5,3 +5,10 @@ log
 src
 *.xlsx
 *.ipynb
+*.vscode
+*.egg-info
+*.egg
+eggs/
+.eggs/
+venv
+.venv
